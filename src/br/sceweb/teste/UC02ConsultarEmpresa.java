@@ -48,22 +48,6 @@ public class UC02ConsultarEmpresa {
 		empresaDAO.exclui("76866310000155");
 	}
 	
-	
-	@Test
-	public void CT03UC02FBCosultarNao_Cadastrada() {
-		empresaDAO.adiciona(empresa);
-		Empresa empresa2 = new Empresa();
-		empresa2.setNomeDaEmpresa("empresa x");
-		empresa2.setCnpj("76866310000155");
-		empresa2.setNomeFantasia("empresa x");
-		empresa2.setEndereco("rua taquari");
-		empresa2.setTelefone("2222");
-		empresaDAO.adiciona(empresa2);
-		assertEquals(2,empresaDAO.consultaEmpresas().size());
-		empresaDAO.exclui("89424232000180");
-		empresaDAO.exclui("76866310000155");
-	}
-	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		empresaDAO.exclui("89424232000180");

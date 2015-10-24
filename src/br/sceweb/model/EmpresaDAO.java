@@ -41,7 +41,7 @@ public class EmpresaDAO {
 		PreparedStatement ps;
 		int codigoRetorno = 0;
 		try (Connection conn = new FabricaDeConexoes().getConnection()) {
-			ps = conn.prepareStatement("delete from empresa where cnpj = ?");
+			ps = conn.prepareStatement("DELETE FROM empresa WHERE cnpj = ?");
 			ps.setString(1, cnpj);
 			codigoRetorno = ps.executeUpdate();
 		} catch (SQLException e) {

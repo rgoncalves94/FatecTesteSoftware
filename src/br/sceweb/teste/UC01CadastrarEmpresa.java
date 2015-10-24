@@ -7,12 +7,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 
+
+import br.sceweb.model.Controle;
 import br.sceweb.model.Empresa;
 import br.sceweb.model.EmpresaDAO;
 
 public class UC01CadastrarEmpresa {
     static EmpresaDAO empresaDAO;
     static Empresa empresa;
+	private static Controle controle;
     /**
      * cria os objetos que realizam o caso de uso cadastrar empresa
      * @throws Exception
@@ -21,6 +24,7 @@ public class UC01CadastrarEmpresa {
 	public static void setUpBeforeClass() throws Exception {
 		empresaDAO = new EmpresaDAO();
 		empresa = new Empresa();
+		controle = new Controle();
 		//89.424.232/0001-80
 		empresa.setNomeDaEmpresa("empresa x");
 		empresa.setCnpj("89424232000180");
@@ -72,6 +76,23 @@ public class UC01CadastrarEmpresa {
 			assertEquals("nome da empresa inválido!",e.getMessage());
 		}
 	}
+	
+	@Test
+	public void CT05UC01A5Cadastra_empresa_pelo_controle_com_sucesso(){
+		String retorno = controle.cadastrarEmpresa(empresa.getCnpj(), empresa.getNomeDaEmpresa(),empresa.getNomeFantasia(), empresa.getEndereco(), empresa.getTelefone());
+		assertEquals("cadastro realizado com sucesso", retorno);
+		empresaDAO.exclui("89424232000180");
+	}
+	
+	@Test
+	public void CT06UC01A5Exclui_empresa_pelo_controle_com_sucesso(){
+		controle.cadastrarEmpresa(empresa.getCnpj(), empresa.getNomeDaEmpresa(),empresa.getNomeFantasia(), empresa.getEndereco(), empresa.getTelefone());
+		String retorno = controle.excluirEmpresa("89424232000180");
+		assertEquals("excluido com sucesso", retorno);
+		
+	}
+	
+	
 	/**
 	 * obj - exclui o cnpj ao finalizar o teste
 	 * @throws Exception
